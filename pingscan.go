@@ -15,12 +15,11 @@ import (
 	"github.com/IrekRomaniuk/pingscan/targets"
 	"sync"
 	"time"
-
+	"syscall"
 	// output
 	"bytes"
 	"encoding/json"
 	"os"
-	//"syscall"
 )
 
 type Host struct {
@@ -55,15 +54,14 @@ func (h *Host) Resolve() (err error) {
 }
 
 func main() {
-	// args
 	timeout := 5
 	domains, _ := targets.ReadTargets("./examples/pinglist.txt")
 
 	// we try if we have setuid bit
-	// syscall.Setuid(0)
+	syscall.Setuid(0)
 
 	// real work
-	results := ping(timeout, &domains)
+	results := ping(&timeout, &domains)
 
 	// json print
 	js, _ := json.Marshal(results)
