@@ -5,11 +5,13 @@ import (
     "errors"
     "net"
     "golang.org/x/net/icmp"
-    "golang.org/x/net/internal/iana"
+    //"golang.org/x/net/internal/iana"
     "golang.org/x/net/ipv4"
     "golang.org/x/net/ipv6"
     "fmt"
 )
+
+const ProtocolICMP = 1
 
 func StartSocket(v6 bool) (s *Socket) {
     s = &Socket{V6: v6}
@@ -66,11 +68,13 @@ func (es *Socket) Listen() {
 func (es *Socket) handlePacket(packet []byte, peer net.Addr) {
     var protocol int
 
-    if es.V6 {
+    /*if es.V6 {
         protocol = iana.ProtocolIPv6ICMP
     } else {
         protocol = iana.ProtocolICMP
-    }
+    }*/
+
+    protocol= ProtocolICMP
 
     rm, err := icmp.ParseMessage(protocol, packet); if err != nil {
         return

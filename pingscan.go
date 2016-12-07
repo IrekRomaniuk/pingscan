@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"net"
 	//"time"
-	"github.com/analogic/pingscan/echo"
+	"github.com/IrekRomaniuk/pingscan/echo"
 	"sync"
-	"syscall"
+	//"syscall"
 	"time"
 
 	// output
@@ -71,7 +71,7 @@ func main() {
 	}
 
 	// we try if we have setuid bit
-	syscall.Setuid(0)
+	//syscall.Setuid(0)
 
 	// real work
 	results := ping(timeout, &domains)
