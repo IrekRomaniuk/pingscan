@@ -14,13 +14,13 @@ import (
 	//"time"
 	"github.com/IrekRomaniuk/pingscan/echo"
 	"sync"
-	//"syscall"
 	"time"
 
 	// output
 	"bytes"
 	"encoding/json"
 	"os"
+	"syscall"
 )
 
 type Host struct {
@@ -71,7 +71,7 @@ func main() {
 	}
 
 	// we try if we have setuid bit
-	//syscall.Setuid(0)
+	syscall.Setuid(0)
 
 	// real work
 	results := ping(timeout, &domains)
