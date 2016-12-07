@@ -2,7 +2,20 @@ package main
 
 import (
 	"testing"
+
+    . "github.com/IrekRomaniuk/pingscan/targets"
+    . "github.com/smartystreets/goconvey/convey"
 )
+
+func TestReadTargets(t *testing.T) {
+    Convey("Read pinglist.txt from examples ", t, func() {
+        target := "./examples/pinglist.txt"
+        hosts, _ := ReadTargets(target)
+        Convey("So pinglist.txt should contain 3 items", func() {
+            So(len(hosts), ShouldEqual,3)
+        })
+    })
+}
 
 func TestPing(t *testing.T) {
     timeout := 5

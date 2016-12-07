@@ -13,6 +13,7 @@ import (
 	"net"
 	//"time"
 	"github.com/IrekRomaniuk/pingscan/echo"
+	"github.com/IrekRomaniuk/pingscan/targets"
 	"sync"
 	"time"
 
@@ -20,7 +21,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"os"
-	"syscall"
+	//"syscall"
 )
 
 type Host struct {
@@ -56,22 +57,11 @@ func (h *Host) Resolve() (err error) {
 
 func main() {
 	// args
-	timeout := flag.Int("timeout", 5, "DNS resolve + ping timeout (in s)")
-	flag.Parse()
-	domains := flag.Args()
-
-	if len(domains) == 0 {
-		fmt.Println("")
-		fmt.Println("Usage:")
-		fmt.Println("# pingscan -timeout=5 google.com yahoo.com ...")
-		fmt.Println("")
-		fmt.Println("You must set pingscan setuid bit, or set sysctl net.ipv4.ping_group_range=\"0   1000\", or run as root")
-		fmt.Println("")
-		os.Exit(1)
-	}
+	timeout := 5
+	domains, _ := targets.ReadTargets("./examples/pinglist.txt")
 
 	// we try if we have setuid bit
-	syscall.Setuid(0)
+	// syscall.Setuid(0)
 
 	// real work
 	results := ping(timeout, &domains)
